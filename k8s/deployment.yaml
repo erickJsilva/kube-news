@@ -53,7 +53,7 @@ spec:
     spec:
       containers:
       - name: kubenews
-        image: erickjsilva/kube-news:v2
+        image: erickjsilva/kube-news:v3
         env: 
         - name: DB_DATABASE
           value: "kubenews"
@@ -75,4 +75,4 @@ spec:
   - port: 80
     targetPort: 8080
     nodePort: 30000
-  type: NodePort
+  type: LoadBalancer
