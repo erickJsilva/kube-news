@@ -22,13 +22,13 @@ jobs:
     steps:
      - uses: actions/checkout@v3
       
-     - name: Docker Login
+     - name: Autenticando o Usuario Docker
        uses: docker/login-action@v2.0.0
        with:
           username: ${{secrets.DOCKERHUB_USER}}
           password: ${{secrets.DOCKERHUB_PWD}}
       
-     - name: Build and push Docker images
+     - name: Construindo a imagem e enviando para o Docker Hub
        uses: docker/build-push-action@v3.1.0
        with:
          file: ./src/Dockerfile
@@ -44,13 +44,13 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
-    - name: Kubernetes Set Context
+    - name: Definindo o Kubecongif
       uses: Azure/k8s-set-context@v3.0
       with:
         method: kubeconfig
         kubeconfig: ${{secrets.K8S_CONFIG}}
         
-    - name: Deploy to Kubernetes cluster
+    - name: Efetuando o Deploy no Kubernetes
       uses: Azure/k8s-deploy@v4.3
       with:
         images: erickjsilva/kube-news:${{github.run_number}}
