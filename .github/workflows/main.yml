@@ -26,8 +26,8 @@ jobs:
      - name: Docker Login
        uses: docker/login-action@v2.0.0
        with:
-          username: $({secrets.DOCKERHUB_USER})
-          password: $({secrets.DOCKERHUB_PWD})
+          username: ${{secrets.DOCKERHUB_USER}}
+          password: ${{secrets.DOCKERHUB_PWD}}
       
      - name: Build and push Docker images
        uses: docker/build-push-action@v3.1.0
@@ -37,6 +37,6 @@ jobs:
          push: true
          tags: 
             erickjsilva/kube-news:latest
-            erickjsilva/kube-news:$({github.run_number})
+            erickjsilva/kube-news:${{github.run_number}}
 
  
