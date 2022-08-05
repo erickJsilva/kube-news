@@ -14,7 +14,6 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   CI:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -38,5 +37,24 @@ jobs:
          tags: |
             erickjsilva/kube-news:latest
             erickjsilva/kube-news:${{github.run_number}}
+          
+  CD:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Kubernetes Set Context
+      uses: Azure/k8s-set-context@v3.0
+      with:
+        method: kubeconfig
+        kubeconfig: ${{secrets.K8S_CONFIG}}
+        
+    - name: Deploy to Kubernetes cluster
+      uses: Azure/k8s-deploy@v4.3
+      with:
+        images: erickjsilva/kube-news:${{github.run_number}}
+        manifests: | 
+          k8s/deployment.yaml
+
 
  
